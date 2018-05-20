@@ -129,4 +129,28 @@ class InputCheckTest < Minitest::Test
     assert valid1.valid?
     assert valid2.valid?
   end
+
+  def test_it_expands
+    valid1 = InputCheck.new("A1 C1")
+    valid2 = InputCheck.new("B1 B3")
+    assert valid1.valid?
+    assert valid2.valid?
+
+    assert_equal ["A1", "B1", "C1"], valid1.expand
+    assert_equal ["B1", "B2", "B3"], valid2.expand
+  end
+
+  def test_expands_if_valid_and_changes_output
+    valid1 = InputCheck.new("A1 C1")
+    valid2 = InputCheck.new("B1 B3")
+    invalid = InputCheck.new("X1 B3")
+
+    assert_equal ["A1", "B1", "C1"], valid1.expand_if_valid
+    assert_equal ["B1", "B2", "B3"], valid2.expand_if_valid
+    refute invalid.expand_if_valid
+
+    assert_equal ["A1", "B1", "C1"], valid1.output
+    assert_equal ["B1", "B2", "B3"], valid2.output
+  end
+
 end

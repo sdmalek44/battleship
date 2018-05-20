@@ -23,6 +23,9 @@ class Board
       end
   end
 
+  def will_it_fit
+  end
+
 
   def get_letters(spaces)
     spaces.map {|space| space[0]}

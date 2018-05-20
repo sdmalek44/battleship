@@ -1,8 +1,11 @@
 class InputCheck
   attr_reader :input,
-              :input_arr
+              :input_arr,
+              :output
+
   def initialize(input)
       @input = input
+      @output
   end
 #returns false if string cannot be split
 #if it can it assigns split array to input arr and returns true
@@ -81,5 +84,22 @@ class InputCheck
   def valid?
     return false if !(split?)
     !(same?) && valid_letters? && valid_numbers? && not_diagonal? && right_length?
+  end
+
+  def expand
+    if same_row?
+      nums = ((get_numbers[0].to_s)..(get_numbers[1].to_s)).to_a
+      let = get_letters.push(get_letters[0])
+      @output = let.map.with_index {|let, idx| let + nums[idx] }
+    elsif same_col?
+      let = (get_letters[0]..get_letters[1]).to_a
+      nums = [get_numbers[0].to_s, get_numbers[0].to_s, get_numbers[0].to_s]
+      @output = let.map.with_index {|let, idx| let + nums[idx]}
+    end
+  end
+
+  def expand_if_valid
+    return false if !(valid?)
+    expand if valid?
   end
 end
