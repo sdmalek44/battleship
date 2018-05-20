@@ -19,11 +19,16 @@ class Space
 
   def shot
     if @ship != nil
-      @ship.hit #this is where i left off
+      @ship.hit
       @state = 'H'
     else
       @state = 'M'
     end
   end
 
+  def show_sunk
+    if @ship != nil && @ship.sunk
+        @state = 'S'
+    end
+  end
 end
