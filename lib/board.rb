@@ -31,12 +31,4 @@ class Board
   def get_numbers(spaces)
     spaces.map {|space| space[1].to_i}
   end
-
-  def same_row?(spaces)
-    all_same?(spaces.map { |space| space[0]})
-  end
-
-  def same_col?(spaces)
-    all_same?(spaces.map { |space| space[1]})
-  end
 end
