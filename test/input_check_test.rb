@@ -16,13 +16,14 @@ class InputCheckTest < Minitest::Test
 
   def test_it_can_split
     valid = InputCheck.new("A1 B2")
-    invalid = InputCheck.new("X1 A2")
+    invalid = InputCheck.new("abc")
 
     assert valid.split?
     refute invalid.split?
 
     assert_equal ["A1", "B2"], valid.input_arr
   end
+
   def test_valid_format
     valid = InputCheck.new("A1 B2")
     invalid = InputCheck.new("abcde")
@@ -35,6 +36,8 @@ class InputCheckTest < Minitest::Test
   def test_if_same
     valid = InputCheck.new("A1 B2")
     invalid = InputCheck.new("A1 A1")
+    valid.split?
+    invalid.split?
 
     refute valid.same?
     assert invalid.same?
@@ -43,21 +46,24 @@ class InputCheckTest < Minitest::Test
   def test_valid_letters
     valid = InputCheck.new("A1 B2")
     invalid = InputCheck.new("X1 A1")
+    valid.split?
+    invalid.split?
 
     assert valid.valid_letters?
     refute invalid.valid_letters?
   end
 
-  def test_right_letter
+  def test_letters
     i = InputCheck.new("A1 B2")
 
-    assert i.right_letter?('A')
-    refute i.right_letter?('X')
+    assert_equal ['A', 'B', 'C', 'D'], i.letters
   end
 
   def test_valid_numbers
     valid = InputCheck.new("A1 B2")
     invalid = InputCheck.new("A5 B2")
+    valid.split?
+    invalid.split?
 
     assert valid.valid_numbers?
     refute invalid.valid_numbers?
@@ -97,5 +103,30 @@ class InputCheckTest < Minitest::Test
 
     assert valid.not_diagonal?
     refute invalid.not_diagonal?
+  end
+
+  def test_if_input_range_too_long
+    long1 = InputCheck.new("A1 D1")
+    long2 = InputCheck.new("A1 B4")
+    valid = InputCheck.new("A1 C1")
+    long1.split?
+    long2.split?
+    valid.split?
+
+    refute long1.right_length?
+    refute long2.right_length?
+    assert valid.right_length?
+  end
+
+  def test_if_input_is_valid
+    invalid = InputCheck.new("A9 A1")
+    invalid2 = InputCheck.new("A1 B4")
+    valid1 = InputCheck.new("A1 C1")
+    valid2 = InputCheck.new("B1 B2")
+
+    refute invalid.valid?
+    refute invalid2.valid?
+    assert valid1.valid?
+    assert valid2.valid?
   end
 end

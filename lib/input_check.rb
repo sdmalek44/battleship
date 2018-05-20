@@ -2,12 +2,12 @@ class InputCheck
   attr_reader :input,
               :input_arr
   def initialize(input)
-      @input = input if input != nil
+      @input = input
   end
 #returns false if string cannot be split
 #if it can it assigns split array to input arr and returns true
   def split?
-    if valid_format? && !(same?) && valid_letters? && valid_numbers?
+    if valid_format?
       @input_arr = @input.split(" ").sort
       true
     else
@@ -20,23 +20,24 @@ class InputCheck
   end
 #check if the 2 values are exactly the same
   def same?
-    @input.split(" ").uniq.length == 1
+    @input_arr.uniq.length == 1
   end
 #check if letters in input are A through D
   def valid_letters?
-    @input.split(" ").select do |point|
-      if right_letter?(point[0])
+    @input_arr.select do |point|
+      if letters.include?(point[0])
         point[0]
       end
     end.length == 2
   end
 
-  def right_letter?(letter)
-    ['A', 'B', 'C', 'D'].include?(letter)
+  def letters
+    ['A', 'B', 'C', 'D']
   end
+
 #check if numbers in input are 1 through 4
   def valid_numbers?
-    @input.split(" ").select do |point|
+    @input_arr.select do |point|
       if right_number?(point[1].to_i)
         point[1]
       end
@@ -66,8 +67,19 @@ class InputCheck
   def not_diagonal?
     same_col? || same_row?
   end
-  #
-  # def valid?
-  #   if split?
-  # end
+
+  def right_length?
+    if same_row?
+      (get_numbers[1] - get_numbers[0]) < 3
+    elsif same_col?
+      (letters.index(get_letters[1]) - letters.index(get_letters[0])) < 3
+    else
+      false
+    end
+  end
+
+  def valid?
+    return false if !(split?)
+    !(same?) && valid_letters? && valid_numbers? && not_diagonal? && right_length?
+  end
 end
