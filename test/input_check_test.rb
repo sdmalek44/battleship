@@ -2,12 +2,26 @@ require './test/test_helper'
 require './lib/input_check'
 
 class InputCheckTest < Minitest::Test
+  def test_it_exists
+    i = InputCheck.new("A1 B2")
+
+    assert_instance_of InputCheck, i
+  end
+
+  def test_input_is_assigned
+    i = InputCheck.new("A1 B2")
+
+    assert_equal "A1 B2", i.input
+  end
+
   def test_it_can_split
     valid = InputCheck.new("A1 B2")
     invalid = InputCheck.new("X1 A2")
 
     assert valid.split?
     refute invalid.split?
+
+    assert_equal ["A1", "B2"], valid.input_arr
   end
   def test_valid_format
     valid = InputCheck.new("A1 B2")

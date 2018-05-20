@@ -1,4 +1,6 @@
 class InputCheck
+  attr_reader :input,
+              :input_arr
   def initialize(input)
       @input = input if input != nil
   end
@@ -64,7 +66,7 @@ class InputCheck
   def not_diagonal?
     same_col? || same_row?
   end
-  # 
+  #
   # def valid?
   #   if split?
   # end
