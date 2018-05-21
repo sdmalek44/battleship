@@ -1,6 +1,6 @@
 require './lib/board'
 require './lib/ship'
-require './lib/input_check'
+require './lib/check'
 
 class Player
 
@@ -14,9 +14,7 @@ class Player
     @possible_guesses = %w[A1 A2 A3 A4 B1 B2 B3 B4 C1 C2 C3 C4 D1 D2 D3 D4]
     @ship_locations = [] #array of arrays holding ship locations
     @ship_lengths = [] #array of ship lengths
-  end
-
-  def two_or_three(input)
+    @chk = Check.new
   end
 
   def set_up_ships
