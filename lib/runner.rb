@@ -12,4 +12,5 @@ b.place_second_ship
 
 b.player.set_up_ships
 
-puts b.player.board.spaces
+b.computer.board.display
+b.fire_on_position

@@ -5,14 +5,14 @@ require './lib/check'
 class Player
 
   attr_reader :board,
-              :guesses,
+              :possible,
               :ship_locations,
               :filled_spots,
               :chk
 
   def initialize
-    @board = Board.new
-    @possible_guesses = %w[A1 A2 A3 A4 B1 B2 B3 B4 C1 C2 C3 C4 D1 D2 D3 D4]
+    @board = Board.new('YOU:')
+    @possible = %w[A1 A2 A3 A4 B1 B2 B3 B4 C1 C2 C3 C4 D1 D2 D3 D4]
     @ship_locations = [] #array of arrays holding ship locations
     @filled_spots = [] #array of ship lengths
     @chk = Check.new
@@ -42,11 +42,6 @@ class Player
     else
       false
     end
-  end
-
-  def input
-    print "> "
-    input = gets.chomp.upcase
   end
 
   def set_up_ships

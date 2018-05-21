@@ -3,13 +3,13 @@ require './lib/board'
 
 class BoardTest < Minitest::Test
   def test_it_exists
-    b = Board.new
+    b = Board.new('comp')
 
     assert_instance_of Board, b
   end
 
   def test_get_numbers
-    b = Board.new
+    b = Board.new('comp')
 
     expected = [1, 2, 3]
     actual = b.get_numbers(['A1', 'A2', 'A3'])
@@ -18,14 +18,14 @@ class BoardTest < Minitest::Test
   end
 
   def test_get_letters
-    b = Board.new
+    b = Board.new('comp')
 
     expected = ['A', 'B', 'C']
     actual = b.get_letters(['A1', 'A2', 'A3'])
   end
 
   def test_it_places_ship_object
-    b = Board.new
+    b = Board.new('comp')
 
     b.place_ship(["A1", "A2"])
     expected = "tugboat"
@@ -34,6 +34,16 @@ class BoardTest < Minitest::Test
 
     assert_equal expected, actual1
     assert_equal expected, actual2
+  end
+
+  def test_it_shoots_at_position
+    b = Board.new('comp')
+
+    b.shoot("A2")
+    expected = "M"
+    actual = b.spaces['A'][2].state
+
+    assert_equal expected, actual
   end
 
   # def test_it_fits_horizontally

@@ -2,9 +2,11 @@ require './lib/space'
 require './lib/ship'
 
 class Board
-  attr_accessor :spaces
+  attr_accessor :spaces,
+                :name
 
-  def initialize
+  def initialize(name)
+    @name = name
     @spaces = { 'A' => {1=>Space.new, 2=>Space.new, 3=>Space.new, 4=>Space.new},
                 'B' => {1=>Space.new, 2=>Space.new, 3=>Space.new, 4=>Space.new},
                 'C' => {1=>Space.new, 2=>Space.new, 3=>Space.new, 4=>Space.new},
@@ -22,11 +24,12 @@ class Board
   end
 
   def shoot(position)
-    @spaces[get_letters(position)][get_numbers(position)].shot
+    @spaces[position[0]][position[1].to_i].shot
   end
 
   def display
     update_sunk
+    puts "#{@name}"
     puts "=========="
     puts ". 1 2 3 4"
     print "A #{@spaces['A'][1].state} #{@spaces['A'][2].state}"
@@ -36,7 +39,7 @@ class Board
     print "C #{@spaces['C'][1].state} #{@spaces['C'][2].state}"
     puts " #{@spaces['C'][3].state} #{@spaces['C'][4].state}"
     print "D #{@spaces['D'][1].state} #{@spaces['D'][2].state}"
-    puts " #{@spaces['D'][3].state} #{@spaces['D'][4].state}"
+    puts " #{@spaces['D'][3].state} #{@spaces['D'][4].state}\n\n"
   end
  #assumed to be a valid placement
  #takes in the array of positions from splitting input string

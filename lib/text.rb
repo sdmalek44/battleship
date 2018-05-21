@@ -47,19 +47,19 @@ will turn to 'S'. The first player to sink all the opponents ships wins.\n"
 You now need to layout your two ships.
 The first is two units long and the
 second is three units long.
-The grid has A1 at the top left and D4 at the bottom right."
+The grid has A1 at the top left and D4 at the bottom right.\n\n"
   end
 
   def two_ship
-    "\nEnter the squares for the two-unit ship:\n"
+    "Enter the squares for the two-unit ship:\n"
   end
 
   def three_ship
-    "\nEnter the squares for the three-unit ship:\n"
+    "Enter the squares for the three-unit ship:\n"
   end
 
   def placed
-    "\nShip has been placed\n"
+    "\nShip has been placed\n\n"
   end
 
   def decision(input)
@@ -75,4 +75,20 @@ The grid has A1 at the top left and D4 at the bottom right."
     end
   end
 
+  def enter_position
+    "Enter a position to fire on: "
+  end
+
+  def cant_fire
+    "You cant fire on this position.
+Position either doesn't exist or you have already fired on it.\n\n"
+  end
+
+  def miss(entry)
+    "\nShot on #{entry} was a miss...\n\n"
+  end
+
+  def hit(entry)
+    "Shot on #{entry} was a hit! Nice work captain!"
+  end
 end
