@@ -85,4 +85,8 @@ class Check
       false
     end
   end
+
+  def not_diagonal(input)
+    same_col(input) || same_row(input)
+  end
 end

@@ -6,7 +6,7 @@ require './lib/check'
 class Battleship
 
   attr_reader :player
-  
+
   def initialize
     @text = Text.new
     @computer = Computer.new
@@ -30,7 +30,12 @@ class Battleship
     puts @text.two_ship
     input = @text.input
     if @player.chk.valid(input)
-      @player.enter_two_ship(input) if @player.no_overlap(input)
+      if @player.chk.two_ship(input)
+        puts @text.placed
+        return @player.enter_two_ship(input)
+      else
+        place_first_ship
+      end
     else
       place_first_ship
     end
@@ -40,7 +45,12 @@ class Battleship
     puts @text.three_ship
     input = @text.input
     if @player.chk.valid(input)
-      @player.enter_three_ship(input) if @player.no_overlap(input)
+      if @player.chk.three_ship(input) && @player.no_overlap(input)
+        puts @text.placed
+        return @player.enter_three_ship(input)
+      else
+        place_second_ship
+      end
     else
       place_second_ship
     end

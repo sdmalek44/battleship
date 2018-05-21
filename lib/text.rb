@@ -43,7 +43,7 @@ will turn to 'S'. The first player to sink all the opponents ships wins.\n"
   end
 
   def computer_place_ships
-      "I have laid out my ships on the grid.
+      "\nI have laid out my ships on the grid.
 You now need to layout your two ships.
 The first is two units long and the
 second is three units long.
@@ -56,6 +56,10 @@ The grid has A1 at the top left and D4 at the bottom right."
 
   def three_ship
     "\nEnter the squares for the three-unit ship:\n"
+  end
+
+  def placed
+    "\nShip has been placed\n"
   end
 
   def decision(input)
