@@ -1,9 +1,12 @@
 require './lib/computer'
 require './lib/player'
 require './lib/text'
-require './lib/input_check'
+require './lib/check'
 
 class Battleship
+
+  attr_reader :player
+  
   def initialize
     @text = Text.new
     @computer = Computer.new
@@ -23,9 +26,23 @@ class Battleship
     puts @text.computer_place_ships
   end
 
-  def take_in_valid_ship
+  def place_first_ship
+    puts @text.two_ship
+    input = @text.input
+    if @player.chk.valid(input)
+      @player.enter_two_ship(input) if @player.no_overlap(input)
+    else
+      place_first_ship
+    end
   end
 
-  def place_two_ship
+  def place_second_ship
+    puts @text.three_ship
+    input = @text.input
+    if @player.chk.valid(input)
+      @player.enter_three_ship(input) if @player.no_overlap(input)
+    else
+      place_second_ship
+    end
   end
 end

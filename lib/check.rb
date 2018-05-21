@@ -1,4 +1,8 @@
 class Check
+  def valid(input)
+    valid_form(input) && valid_letts(input) && valid_nums(input)
+  end
+
   def valid_form(input)
     input.length == 5 && input[2] == " "
   end
@@ -28,11 +32,11 @@ class Check
   end
 
   def get_letts(input)
-    [input[0], input[3]]
+    [input[0], input[3]].sort
   end
 
   def get_nums(input)
-    [input[1].to_i, input[4].to_i]
+    [input[1].to_i, input[4].to_i].sort
   end
 
   def same_row(input)
