@@ -1,8 +1,5 @@
-require './lib/text'
+require './lib/battleship'
 
-t = Text.new
+b = Battleship.new
 
-loop do
-  puts t.intro
-  t.decision(t.input)
-end
+b.start_game

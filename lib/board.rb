@@ -10,6 +10,7 @@ class Board
                 'C' => {1=>Space.new, 2=>Space.new, 3=>Space.new, 4=>Space.new},
                 'D' => {1=>Space.new, 2=>Space.new, 3=>Space.new, 4=>Space.new}
               }
+    @positions = []
   end
 
   def update_sunk
@@ -20,15 +21,22 @@ class Board
     end
   end
 
+  def shoot(position)
+    @spaces[get_letters(position)][get_numbers(position)].shot
+  end
+
   def display
     update_sunk
     puts "=========="
     puts ". 1 2 3 4"
-    puts "A #{@spaces['A'][1].state} #{@spaces['A'][2].state} #{@spaces['A'][3].state} #{@spaces['A'][4].state}"
-    puts "B #{@spaces['B'][1].state} #{@spaces['B'][2].state} #{@spaces['B'][3].state} #{@spaces['B'][4].state}"
-    puts "C #{@spaces['C'][1].state} #{@spaces['C'][2].state} #{@spaces['C'][3].state} #{@spaces['C'][4].state}"
-    puts "D #{@spaces['D'][1].state} #{@spaces['D'][2].state} #{@spaces['D'][3].state} #{@spaces['D'][4].state}"
-
+    print "A #{@spaces['A'][1].state} #{@spaces['A'][2].state}"
+    puts " #{@spaces['A'][3].state} #{@spaces['A'][4].state}"
+    print "B #{@spaces['B'][1].state} #{@spaces['B'][2].state}"
+    puts " #{@spaces['B'][3].state} #{@spaces['B'][4].state}"
+    print "C #{@spaces['C'][1].state} #{@spaces['C'][2].state}"
+    puts " #{@spaces['C'][3].state} #{@spaces['C'][4].state}"
+    print "D #{@spaces['D'][1].state} #{@spaces['D'][2].state}"
+    puts " #{@spaces['D'][3].state} #{@spaces['D'][4].state}"
   end
  #assumed to be a valid placement
  #takes in the array of positions from splitting input string
@@ -40,22 +48,6 @@ class Board
           @spaces[letter][numbers[index]].ship = new_ship
       end
   end
-
-  # def fit_horz?(array)
-  #   if array.length == 2
-  #     get_numbers(array)[0] <= 3
-  #   elsif array.length == 3
-  #     get_numbers(array)[0] <= 2
-  #   end
-  # end
-  #
-  # def fit_vert?(array)
-  #   if array.length == 2
-  #     letters.index(get_letters(array)[0]) <= 2
-  #   elsif array.length == 3
-  #     letters.index(get_letters(array)[0]) <= 1
-  #   end
-  # end
 
   def get_letters(spaces)
     spaces.map {|space| space[0]}
