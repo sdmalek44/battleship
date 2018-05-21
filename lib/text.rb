@@ -75,6 +75,14 @@ The grid has A1 at the top left and D4 at the bottom right.\n\n"
     end
   end
 
+  def restart_prompt
+    "\nEnter 'r' to restart or 'q' to quit\n"
+  end
+
+  def restart(input)
+
+  end
+
   def enter_position
     "Above is the opponents board.
 Enter a position to fire on: "
@@ -110,7 +118,7 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def sunk_ship(name)
-    "\nYou have sunken the opponents #{name}. Great shot!\n"
+    "\nYou have sunken the opponents #{name}!\n"
   end
 
   def comp_sunk(name)
@@ -118,6 +126,12 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def winner
-    "\nYou have sunken all of the opponents ships. You Win!!\n"
+    "\nThat was the last of your opponents ships..\n
+Congratulations! YOU WIN!!\n"
+  end
+
+  def loser
+    "\nThat was the last of your remaining ships.
+Guess what?...YOU LOSE!\n"
   end
 end
