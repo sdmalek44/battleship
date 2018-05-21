@@ -12,5 +12,13 @@ b.place_second_ship
 
 b.player.set_up_ships
 
+loop do
+b.player_fires
 b.computer.board.display
-b.fire_on_position
+
+b.end_turn
+
+b.computer_fires
+b.player.board.display
+b.end_opposing_turn
+end

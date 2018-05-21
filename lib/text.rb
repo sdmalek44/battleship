@@ -35,7 +35,7 @@ opponent’s ships), a mark 'H' for hit and 'M' for miss will appear at
 that spot. This will help you keep track of your hits and misses in your
 hunt to find their ships. Once all spots on a ship have been filled with
 an 'H', a ship has sunk and the 'H' markings on the board for that ship
-will turn to 'S'. The first player to sink all the opponents ships wins.\n"
+will turn to 'X's. The first player to sink all the opponents ships wins.\n"
   end
 
   def quit_game
@@ -55,11 +55,11 @@ The grid has A1 at the top left and D4 at the bottom right.\n\n"
   end
 
   def three_ship
-    "Enter the squares for the three-unit ship:\n"
+    "\nEnter the squares for the three-unit ship:\n"
   end
 
   def placed
-    "\nShip has been placed\n\n"
+    "\nShip has been placed\n"
   end
 
   def decision(input)
@@ -76,19 +76,48 @@ The grid has A1 at the top left and D4 at the bottom right.\n\n"
   end
 
   def enter_position
-    "Enter a position to fire on: "
+    "Above is the opponents board.
+Enter a position to fire on: "
   end
 
   def cant_fire
-    "You cant fire on this position.
-Position either doesn't exist or you have already fired on it.\n\n"
+    "You cant fire on that position!!!
+Position either doesn't exist or you have already fired on it.\n"
   end
 
   def miss(entry)
-    "\nShot on #{entry} was a miss...\n\n"
+    "\nYour shot at #{entry} was a miss...\n"
   end
 
   def hit(entry)
-    "Shot on #{entry} was a hit! Nice work captain!"
+    "\nYour shot at #{entry} was a hit! Nice work captain!\n"
+  end
+
+  def miss_comp(entry)
+    "\nThe computer fired at #{entry} but missed..\n"
+  end
+
+  def hit_comp(entry)
+    "\nThe computer fired and hit your ship at #{entry}!\n"
+  end
+
+  def end_turn
+    "If you would like to end your turn press ENTER\n"
+  end
+
+  def end_opposing_turn
+    "If you would like to end opponents turn press ENTER\n"
+  end
+
+  def sunk_ship(name)
+    "\nYou have sunken the opponents #{name}. Great shot!\n"
+  end
+
+  def comp_sunk(name)
+    "\nYour opponent has sunken your #{name}!!\n"
+  end
+
+  def winner
+    "\nYou have sunken all of the opponents ships. You Win!!\n"
   end
 end

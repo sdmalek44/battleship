@@ -65,21 +65,62 @@ class Battleship
     @computer.board.display
   end
 
-  def fire_on_position
+  def player_fires
+    @computer.board.display
     puts @text.enter_position
     entry = @text.input
     if @player.possible.include?(entry)
       @computer.board.shoot(entry)
-      if @computer.board.spaces[entry[0]][entry[1].to_i].state == 'M'
+      space = @computer.board.spaces[entry[0]][entry[1].to_i]
+      if space.state == 'M'
         puts @text.miss(entry)
-      elsif @computer.board.spaces[entry[0]][entry[1].to_i].state == 'H'
+      elsif space.state == 'H'
+        @computer.board.add_hit
         puts @text.hit(entry)
+        space.show_sunk
+        if space.state == 'X'
+          puts @text.sunk_ship(space.ship.name)
+          if winning_shot
+            puts @text.winner
+          end
+        end
       end
-      return @computer.remove_guess(entry)
+      @player.remove_guess(entry)
+      return
     else
       puts @text.cant_fire
-      fire_on_position
+      player_fires
     end
   end
 
+  def winning_shot
+    @computer.board.hits == 5
+  end
+
+  def end_turn
+    puts @text.end_turn
+    @text.input
+  end
+
+  def end_opposing_turn
+    puts @text.end_opposing_turn
+    @text.input
+  end
+
+  def computer_fires
+    entry = @computer.possible.sample
+    @player.board.shoot(entry)
+    space = @player.board.spaces[entry[0]][entry[1].to_i]
+    if space.state == 'M'
+      puts @text.miss_comp(entry)
+    elsif space.state == 'H'
+      puts @text.hit_comp(entry)
+      space.show_sunk
+      if space.state == 'X'
+        puts @text.comp_sunk(space.ship.name)
+      end
+    end
+    @computer.remove_guess(entry)
+    return
+  end
 end

@@ -49,4 +49,9 @@ class Player
       @ship_locations.each {|location| @board.place_ship(location)}
     end
   end
+
+
+  def remove_guess(entry)
+    @possible.delete(entry)
+  end
 end

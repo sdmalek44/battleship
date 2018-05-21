@@ -3,7 +3,8 @@ require './lib/ship'
 
 class Board
   attr_accessor :spaces,
-                :name
+                :name,
+                :hits
 
   def initialize(name)
     @name = name
@@ -12,7 +13,11 @@ class Board
                 'C' => {1=>Space.new, 2=>Space.new, 3=>Space.new, 4=>Space.new},
                 'D' => {1=>Space.new, 2=>Space.new, 3=>Space.new, 4=>Space.new}
               }
-    @positions = []
+    @hits = 0
+  end
+
+  def add_hit
+    @hits += 1
   end
 
   def update_sunk
@@ -29,7 +34,7 @@ class Board
 
   def display
     update_sunk
-    puts "#{@name}"
+    puts "\n#{@name}"
     puts "=========="
     puts ". 1 2 3 4"
     print "A #{@spaces['A'][1].state} #{@spaces['A'][2].state}"

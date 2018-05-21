@@ -28,7 +28,7 @@ class Space
 
   def show_sunk
     if @ship != nil && @ship.sunk
-        @state = 'S'
+        @state = 'X'
     end
   end
 end
