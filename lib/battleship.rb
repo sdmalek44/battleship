@@ -104,11 +104,11 @@ class Battleship
     if space.state == 'M'
       puts @text.miss(entry)
     elsif space.state == 'H'
-      hit_sequence(entry, space)
+      player_hit_sequence(entry, space)
     end
   end
 
-  def hit_sequence(entry, space)
+  def player_hit_sequence(entry, space)
     @computer.board.add_hit
     puts @text.hit(entry)
     space.show_sunk
@@ -129,23 +129,34 @@ class Battleship
   def computer_fires
     entry = @computer.possible.sample
     @player.board.shoot(entry)
+    check_comp_shot_result(entry)
+    @computer.remove_guess(entry)
+  end
+
+  def check_comp_shot_result(entry)
     space = @player.board.spaces[entry[0]][entry[1].to_i]
     if space.state == 'M'
       puts @text.miss_comp(entry)
     elsif space.state == 'H'
-      @player.board.add_hit
-      puts @text.hit_comp(entry)
-      space.show_sunk
-      if space.state == 'X'
-        puts @text.comp_sunk(space.ship.name)
-        if losing_shot
-          puts @text.loser
-          restart
-        end
-      end
+      computer_check_if_sunk(entry, space)
     end
-    @computer.remove_guess(entry)
-    return
+  end
+
+  def computer_check_if_sunk(entry, space)
+    @player.board.add_hit
+    puts @text.hit_comp(entry)
+    space.show_sunk
+    if space.state == 'X'
+      check_if_lost(space)
+    end
+  end
+
+  def check_if_lost(space)
+    puts @text.comp_sunk(space.ship.name)
+    if losing_shot
+      puts @text.loser
+      restart
+    end
   end
 
   def restart
