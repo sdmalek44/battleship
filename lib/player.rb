@@ -36,20 +36,19 @@ class Player
     end
   end
 
-  def no_overlap(input)
-    input.split(" ").each do |point|
-      return false if @filled_spots.include?(point)
-    end
-    true
-  end
-
   def set_up_ships
     if @ship_locations.length == 2
       @ship_locations.each {|location| @board.place_ship(location)}
     end
   end
 
-
+  def no_overlap(input)
+    input.split(" ").each do |point|
+      return false if @filled_spots.include?(point)
+    end
+    true
+  end
+  
   def remove_guess(entry)
     @possible.delete(entry)
   end

@@ -69,6 +69,25 @@ class PlayerTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_it_sets_up_ships_using_arrays_in_ship_locations
+    player = Player.new
+
+    player.enter_two_ship('A1 A2')
+    player.enter_three_ship('B2 B4')
+    player.set_up_ships
+
+    assert_instance_of Ship, player.board.spaces['A'][1].ship
+    assert_equal 'tugboat', player.board.spaces['A'][1].ship.name
+    assert_instance_of Ship, player.board.spaces['A'][2].ship
+    assert_equal 'tugboat', player.board.spaces['A'][2].ship.name
+    assert_instance_of Ship, player.board.spaces['B'][2].ship
+    assert_equal 'cruiser', player.board.spaces['B'][2].ship.name
+    assert_instance_of Ship, player.board.spaces['B'][3].ship
+    assert_equal 'cruiser', player.board.spaces['B'][3].ship.name
+    assert_instance_of Ship, player.board.spaces['B'][4].ship
+    assert_equal 'cruiser', player.board.spaces['B'][4].ship.name
+  end
+
   def test_array_of_ship_points_doesnt_overlap_with_already_placed_ships
     player = Player.new
 
@@ -76,5 +95,15 @@ class PlayerTest < Minitest::Test
 
     assert player.no_overlap('A3 A4')
     refute player.no_overlap('A2 B2')
+  end
+
+  def test_it_removes_guess_from_possible_guesses
+    player = Player.new
+    expected1 = %w[A1 A2 A3 A4 B1 B2 B3 B4 C1 C2 C3 C4 D1 D2 D3 D4]
+    assert_equal expected1, player.possible
+
+    expected2 = %w[A2 A3 A4 B1 B2 B3 B4 C1 C2 C3 C4 D1 D2 D3 D4]
+    player.remove_guess('A1')
+    assert_equal expected2, player.possible
   end
 end
