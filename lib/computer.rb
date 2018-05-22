@@ -12,9 +12,8 @@ class Computer
     @three_ships = [%w[A1 A2 A3], %w[B2 C2 D2], %w[A4 B4 C4]]
   end
 
-  def set_up_ships
-    ships = [@two_ships.sample, @three_ships.sample]
-    ships.each {|ship| @board.place_ship(ship)}
+  def set_up_ships(two = @two_ships.sample, three = @three_ships.sample)
+    [two, three].each {|ship| @board.place_ship(ship)}
   end
 
   def remove_guess(entry)
