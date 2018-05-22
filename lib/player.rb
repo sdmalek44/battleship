@@ -18,14 +18,6 @@ class Player
     @chk = Check.new
   end
 
-#doesn't validate just puts ships in ship location
-  def no_overlap(input)
-    input.split(" ").each do |point|
-      return false if @filled_spots.include?(point)
-    end
-    true
-  end
-
   def enter_two_ship(input)
     if @chk.two_ship(input)
       @ship_locations << input.split(" ").sort
@@ -42,6 +34,13 @@ class Player
     else
       false
     end
+  end
+
+  def no_overlap(input)
+    input.split(" ").each do |point|
+      return false if @filled_spots.include?(point)
+    end
+    true
   end
 
   def set_up_ships
