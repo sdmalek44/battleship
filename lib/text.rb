@@ -76,11 +76,7 @@ The grid has A1 at the top left and D4 at the bottom right.\n\n"
   end
 
   def restart_prompt
-    "\nEnter 'r' to restart or 'q' to quit\n"
-  end
-
-  def restart(input)
-
+    "Enter 'r' to restart or 'q' to quit\n"
   end
 
   def enter_position

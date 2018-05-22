@@ -34,12 +34,16 @@ class Battleship
     puts @text.two_ship
     input = @text.input
     if @player.chk.valid(input)
-      if @player.chk.two_ship(input)
-        puts @text.placed
-        return @player.enter_two_ship(input)
-      else
-        place_first_ship
-      end
+      return set_two_ship(input)
+    else
+      place_first_ship
+    end
+  end
+
+  def set_two_ship(input)
+    if @player.chk.two_ship(input)
+      puts @text.placed
+      @player.enter_two_ship(input)
     else
       place_first_ship
     end
@@ -49,50 +53,76 @@ class Battleship
     puts @text.three_ship
     input = @text.input
     if @player.chk.valid(input)
-      if @player.chk.three_ship(input) && @player.no_overlap(input)
-        puts @text.placed
-        return @player.enter_three_ship(input)
-      else
-        place_second_ship
-      end
+      return set_three_ship(input)
     else
       place_second_ship
     end
   end
 
-  def display_both_boards
-    puts "YOU:"
-    @player.board.display
-    puts "\nCOMPUTER:"
-    @computer.board.display
+  def set_three_ship(input)
+    if @player.chk.three_ship(input) && @player.no_overlap(input)
+      puts @text.placed
+      @player.enter_three_ship(input)
+    else
+      place_second_ship
+    end
   end
 
   def player_fires
-    @computer.board.display
-    puts @text.enter_position
+    shot_prompt
     entry = @text.input
+    fire_if_possible(entry)
+  end
+
+  def fire_if_possible(entry)
     if @player.possible.include?(entry)
-      @computer.board.shoot(entry)
-      space = @computer.board.spaces[entry[0]][entry[1].to_i]
-      if space.state == 'M'
-        puts @text.miss(entry)
-      elsif space.state == 'H'
-        @computer.board.add_hit
-        puts @text.hit(entry)
-        space.show_sunk
-        if space.state == 'X'
-          puts @text.sunk_ship(space.ship.name)
-          if winning_shot
-            puts @text.winner
-            restart
-          end
-        end
-      end
-      @player.remove_guess(entry)
+      fire_at_computer(entry)
       return
     else
-      puts @text.cant_fire
-      player_fires
+      invalid_shot
+    end
+  end
+
+  def fire_at_computer(entry)
+    @computer.board.shoot(entry)
+    check_shot_result(entry)
+    @player.remove_guess(entry)
+  end
+
+  def invalid_shot
+    puts @text.cant_fire
+    player_fires
+  end
+
+  def shot_prompt
+    @computer.board.display
+    puts @text.enter_position
+  end
+
+  def check_shot_result(entry)
+    space = @computer.board.spaces[entry[0]][entry[1].to_i]
+    if space.state == 'M'
+      puts @text.miss(entry)
+    elsif space.state == 'H'
+      hit_sequence(entry, space)
+    end
+  end
+
+  def hit_sequence(entry, space)
+    @computer.board.add_hit
+    puts @text.hit(entry)
+    space.show_sunk
+    if space.state == 'X'
+      check_if_won(space)
+    end
+  end
+
+  def check_if_won(space)
+    puts @text.sunk_ship(space.ship.name)
+    if winning_shot
+      puts @text.winner
+      puts @computer.board.display
+      restart
     end
   end
 
