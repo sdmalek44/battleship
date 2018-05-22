@@ -1,6 +1,6 @@
 class Text
   def welcome
-    "\nWelcome to BATTLESHIP\n"
+    "\n\n\nWelcome to BATTLESHIP\n"
   end
 
   def intro
@@ -110,11 +110,11 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def end_turn
-    "If you would like to end your turn press ENTER\n"
+    "If you would like to end your turn press ENTER"
   end
 
   def end_opposing_turn
-    "If you would like to end opponents turn press ENTER\n"
+    "If you would like to end opponents turn press ENTER"
   end
 
   def sunk_ship(name)
