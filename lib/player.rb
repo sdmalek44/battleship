@@ -13,8 +13,8 @@ class Player
   def initialize
     @board = Board.new('YOU:')
     @possible = %w[A1 A2 A3 A4 B1 B2 B3 B4 C1 C2 C3 C4 D1 D2 D3 D4]
-    @ship_locations = [] #array of arrays holding ship locations
-    @filled_spots = [] #array of ship lengths
+    @ship_locations = []
+    @filled_spots = [] 
     @chk = Check.new
   end
 
@@ -48,7 +48,7 @@ class Player
     end
     true
   end
-  
+
   def remove_guess(entry)
     @possible.delete(entry)
   end
