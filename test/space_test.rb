@@ -15,7 +15,7 @@ class SpaceTest < Minitest::Test
     assert_equal '~', s.state
   end
 
-  def test_it_initializes_with_ship
+  def test_it_initializes_with_no_ship
     s = Space.new
 
     assert_nil s.ship
@@ -51,7 +51,7 @@ class SpaceTest < Minitest::Test
     space.fill(ship)
 
     assert_equal 2, space.ship.health
-    space.shot
+    assert_equal 'H', space.shot
 
     assert_equal 1, space.ship.health
   end
@@ -65,5 +65,6 @@ class SpaceTest < Minitest::Test
 
     assert space.ship.sunk
     assert_equal 'X', space.show_sunk
+    assert_equal 'X', space.state
   end
 end

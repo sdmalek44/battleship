@@ -36,8 +36,12 @@ class Battleship
   def place_first_ship
     puts @text.two_ship
     input = @text.input
+    place_two_ship_if_valid(input)
+  end
+
+  def place_two_ship_if_valid(input)
     if @player.chk.valid(input)
-      return set_two_ship(input)
+      set_two_ship(input)
     else
       puts @text.invalid('A1 A2')
       place_first_ship
@@ -200,8 +204,8 @@ class Battleship
     puts `clear`
   end
 
-  def finish_time
-    seconds = (Time.now - @start_time).to_i
+  def finish_time(time = Time.now)
+    seconds = (time - @start_time).to_i
     minutes = seconds / 60
     Array.new.push(minutes, (seconds - minutes * 60))
   end

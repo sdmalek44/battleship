@@ -22,6 +22,7 @@ class Player
     if @chk.two_ship(input)
       @ship_locations << input.split(" ").sort
       @filled_spots = @ship_locations.flatten
+      true
     else
       false
     end
@@ -32,6 +33,7 @@ class Player
       if no_overlap(input)
         @ship_locations << @chk.expand(input)
         @filled_spots = @ship_locations.flatten
+        true
       end
     else
       false

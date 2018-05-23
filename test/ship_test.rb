@@ -46,13 +46,14 @@ class ShipTest < Minitest::Test
 
   def test_sunk_changes_to_true_if_health_equals_zero
     s = Ship.new(2)
-    
+
     assert_equal 2, s.health
     refute s.sunk
 
     s.hit
     s.hit
 
+    assert s.hit
     assert_equal 0, s.health
     assert s.sunk
   end

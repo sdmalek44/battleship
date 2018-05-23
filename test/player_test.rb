@@ -30,7 +30,7 @@ class PlayerTest < Minitest::Test
 
   def test_enter_two_ship_stores_array_of_points_in_ship_locations
     player = Player.new
-    player.enter_two_ship('A1 A2')
+    assert player.enter_two_ship('A1 A2')
 
     refute player.enter_two_ship('A1 A3')
 
@@ -40,7 +40,7 @@ class PlayerTest < Minitest::Test
   def test_enter_two_ships_adds_to_fill_locations
     player = Player.new
 
-    assert_equal ['A1', 'A2'], player.enter_two_ship('A1 A2')
+    assert player.enter_two_ship('A1 A2')
 
     assert_equal ['A1','A2'], player.filled_spots
   end
@@ -61,8 +61,8 @@ class PlayerTest < Minitest::Test
   def test_enter_three_changes_and_returns_flattened_array_of_filled_spots
     player = Player.new
 
-    player.enter_two_ship('A1 A2')
-    player.enter_three_ship('B2 B4')
+    assert player.enter_two_ship('A1 A2')
+    assert player.enter_three_ship('B2 B4')
 
     expected2 = ['A1', 'A2', 'B2', 'B3', 'B4']
     actual = player.filled_spots
