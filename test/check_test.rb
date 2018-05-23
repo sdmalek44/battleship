@@ -91,12 +91,26 @@ class CheckTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_if_it_expands_a_three_ship
-    valid1 = Check.new
-    valid2 = Check.new
+  def test_it_is_three_ship
+    c = Check.new
 
-    assert_equal ["A1", "B1", "C1"], valid1.expand("A1 C1")
-    assert_equal ["B1", "B2", "B3"], valid2.expand("B1 B3")
+    assert c.three_ship('A1 A3')
+    refute c.three_ship('A1 A2')
+  end
+
+  def test_it_is_two_ship
+    c = Check.new
+
+    refute c.two_ship('A1 A3')
+    assert c.two_ship('A1 A2')
+  end
+
+  def test_if_it_expands_a_three_ship
+    valid = Check.new
+
+    assert_equal ["A1", "B1", "C1"], valid.expand("A1 C1")
+    assert_equal ["B1", "B2", "B3"], valid.expand("B1 B3")
+    refute valid.expand('A1 B2')
   end
 
   def test_it_is_not_diagonal

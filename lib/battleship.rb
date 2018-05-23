@@ -9,8 +9,9 @@ class Battleship
               :computer,
               :text,
               :end_game,
-              :turns,
-              :start_time
+              :turns
+
+  attr_accessor :start_time
 
   def initialize
     @end_game = false
@@ -61,6 +62,10 @@ class Battleship
   def place_second_ship
     puts @text.three_ship
     input = @text.input
+    place_three_ship_if_valid(input)
+  end
+
+  def place_three_ship_if_valid(input)
     if @player.chk.valid(input)
       return set_three_ship(input)
     else
@@ -91,7 +96,6 @@ class Battleship
   def fire_if_possible(entry)
     if @player.possible.include?(entry)
       fire_at_computer(entry)
-      return
     else
       puts @text.cant_fire
       player_fires
@@ -121,6 +125,7 @@ class Battleship
     if space.state == 'X'
       check_if_won(space)
     end
+    space
   end
 
   def check_if_won(space)
@@ -128,7 +133,9 @@ class Battleship
     if winning_shot
       puts @text.winner(finish_time, turns)
       puts @computer.board.display
-      restart
+      puts @text.restart_prompt
+      entry = @text.input
+      restart(entry)
     end
   end
 
@@ -145,12 +152,12 @@ class Battleship
     if space.state == 'M'
       puts @text.miss_comp(entry)
     elsif space.state == 'H'
+      @player.board.add_hit
       computer_check_if_sunk(entry, space)
     end
   end
 
   def computer_check_if_sunk(entry, space)
-    @player.board.add_hit
     space.show_sunk
     puts @text.hit_comp(entry)
     if space.state == 'X'
@@ -163,13 +170,13 @@ class Battleship
     if losing_shot
       puts @text.loser
       puts @player.board.display
-      restart
+      puts @text.restart_prompt
+      entry = @text.input
+      restart(entry)
     end
   end
 
-  def restart
-    puts @text.restart_prompt
-    entry = @text.input
+  def restart(entry)
     if entry == 'R'
       @end_game = true
     elsif entry == 'Q'
