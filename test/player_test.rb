@@ -93,8 +93,8 @@ class PlayerTest < Minitest::Test
 
     player.enter_two_ship('A1 A2')
 
-    assert player.no_overlap('A3 A4')
-    refute player.no_overlap('A2 B2')
+    assert player.no_overlap('B1 B3')
+    refute player.no_overlap('A1 A3')
   end
 
   def test_it_removes_guess_from_possible_guesses

@@ -75,32 +75,6 @@ class CheckTest < Minitest::Test
     refute c.same_row("A1 B1")
   end
 
-  def test_if_it_is_three_long
-    c = Check.new
-
-    assert c.three_ship('A1 A3')
-    refute c.three_ship('A2 A3')
-    assert c.three_ship('B2 D2')
-    refute c.three_ship('B2 C2')
-
-  end
-
-  def test_if_it_is_three_long
-    c = Check.new
-
-    refute c.two_ship('A1 A3')
-    assert c.two_ship('A2 A3')
-    refute c.two_ship('B2 D2')
-    assert c.two_ship('B2 C2')
-  end
-
-  def test_two_or_three
-    c = Check.new
-
-    assert_equal 2, c.two_or_three('A1 A2')
-    assert_equal 3, c.two_or_three('A1 A3')
-  end
-
   def test_if_it_expands_a_three_ship
     valid1 = Check.new
     valid2 = Check.new

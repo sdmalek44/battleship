@@ -20,8 +20,10 @@ class BoardTest < Minitest::Test
   def test_get_letters
     b = Board.new('comp')
 
-    expected = ['A', 'B', 'C']
+    expected = ['A', 'A', 'A']
     actual = b.get_letters(['A1', 'A2', 'A3'])
+
+    assert_equal expected, actual
   end
 
   def test_it_places_ship_object
@@ -45,22 +47,4 @@ class BoardTest < Minitest::Test
 
     assert_equal expected, actual
   end
-
-  # def test_it_fits_horizontally
-  #   b = Board.new
-  #
-  #   assert b.fit_horz?(['A2', 'A3', 'A4'])
-  #   refute b.fit_horz?(['A3', 'A4', 'A5'])
-  #   assert b.fit_horz?(['A3', 'A4'])
-  #   refute b.fit_horz?(['B4', 'B5'])
-  # end
-  #
-  # def test_it_fits_vertically
-  #   b = Board.new
-  #
-  #   assert b.fit_vert?(['A1', 'B1', 'C1'])
-  #   refute b.fit_vert?(['C2', 'D2', 'E2'])
-  #   assert b.fit_vert?(['C3', 'D3'])
-  #   refute b.fit_vert?(['D4', 'E4'])
-  # end
 end
