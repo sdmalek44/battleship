@@ -1,5 +1,5 @@
-require './lib/text'
 require './test/test_helper'
+require './lib/text'
 
 class TextTest < Minitest::Test
   def test_welcome
@@ -22,6 +22,14 @@ class TextTest < Minitest::Test
     expected = "\nInvalid input! Please enter a ships start and end coordinates.
 For example: 'BLAH'\n"
     assert_equal expected, t.invalid('BLAH')
+  end
+
+  def test_bad_input
+    t = Text.new
+
+    expected = "please enter a valid character\n"
+
+    assert_equal expected, t.bad_input
   end
 
   def test_not_three_ship
@@ -75,6 +83,26 @@ The grid has A1 at the top left and D4 at the bottom right.\n"
     assert_equal expected, t.computer_place_ships
   end
 
+  def test_ship_placed_message
+    t = Text.new
+
+    assert_equal "\nShip has been placed\n", t.placed
+  end
+
+  def test_two_ship
+    t = Text.new
+
+    expected = "\nEnter the squares for the two-unit ship:\n"
+    assert_equal expected, t.two_ship
+  end
+
+  def test_three_ship
+    t = Text.new
+
+    expected = "\nEnter the squares for the three-unit ship:\n"
+    assert_equal expected, t.three_ship
+  end
+
   def test_miss_message
     t = Text.new
 
@@ -88,6 +116,34 @@ The grid has A1 at the top left and D4 at the bottom right.\n"
     expected = "Your shot at BLAH was a hit! Nice work captain!\n"
 
     assert_equal expected, t.hit('BLAH')
+  end
+
+  def test_decision
+    t = Text.new
+
+    assert t.decision('P')
+  end
+
+  def test_restart_prompt
+    t = Text.new
+
+    assert_equal "Enter 'r' to restart or 'q' to quit\n", t.restart_prompt
+  end
+
+  def test_enter_position
+    t = Text.new
+
+    expected = "\nEnter a position to fire on: "
+    assert_equal expected, t.enter_position
+  end
+
+  def test_cant_fire
+    t = Text.new
+
+    expected = "You cant fire on that position!!!
+Position either doesn't exist or you have already fired on it.\n"
+
+    assert_equal expected, t.cant_fire
   end
 
   def test_computer_miss_message
@@ -104,9 +160,48 @@ The grid has A1 at the top left and D4 at the bottom right.\n"
     assert_equal expected, t.hit_comp('BLAH')
   end
 
-  def test_decision_returns_true_if_player_wants_to_play
+  def test_end_turn
     t = Text.new
 
-    assert t.decision('P')
+    expected = "\nIf you would like to end your turn press ENTER"
+    assert_equal expected, t.end_turn
+  end
+
+  def test_end_opposing_turn
+    t = Text.new
+
+    expected = "\nPress ENTER"
+    assert_equal expected, t.end_opposing_turn
+  end
+
+  def test_sunk_ship
+    t = Text.new
+
+    expected = "\nYou have sunken the opponents blah!\n"
+    assert_equal expected, t.sunk_ship('blah')
+  end
+
+  def test_computer_sunk
+    t = Text.new
+
+    expected = "\nYour opponent has sunken your blah!!\n"
+    assert_equal expected, t.comp_sunk('blah')
+  end
+
+  def test_winner
+    t = Text.new
+
+    expected = "That was the last of your opponents ships..\n
+Congratulations! YOU WON!!
+And you did it in 1 turns, 2 minutes, and 3 seconds."
+  assert_equal expected, t.winner([2, 3], 1)
+  end
+
+  def test_loser
+    t = Text.new
+
+    expected = "That was the last of your remaining ships.
+Guess what?...YOU LOSE!\n"
+  assert_equal expected, t.loser
   end
 end

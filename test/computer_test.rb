@@ -1,5 +1,5 @@
-require './lib/computer'
 require './test/test_helper'
+require './lib/computer'
 
 class ComputerTest < Minitest::Test
   def test_if_it_exists

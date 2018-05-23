@@ -142,8 +142,4 @@ Guess what?...YOU LOSE!\n"
   def enter
     gets.chomp
   end
-
-  def ready
-    "\nPrepare the crew for attack!\n"
-  end
 end

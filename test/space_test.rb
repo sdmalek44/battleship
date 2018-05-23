@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/space'
-require './lib/ship'
 
 class SpaceTest < Minitest::Test
   def test_if_it_exists
@@ -23,17 +22,15 @@ class SpaceTest < Minitest::Test
 
   def test_it_creates_new_ship_if_ship_equals_nil
     space = Space.new
-    ship = Ship.new(2)
 
-    assert_instance_of Ship, space.fill(ship)
-    assert_equal ship, space.ship
+    assert_equal 'ship', space.fill('ship')
+    assert_equal 'ship', space.ship
   end
 
   def test_it_changes_the_state_when_filled_and_shot_at
     space = Space.new
-    ship = Ship.new(2)
 
-    space.fill(ship)
+    space.fill(Ship.new(2))
     assert_equal 'H', space.shot
     assert_equal 'H', space.state
   end

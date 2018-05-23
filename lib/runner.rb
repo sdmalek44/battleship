@@ -15,6 +15,7 @@ def play_game(b)
 end
 
 loop do
+  puts `clear`
   b = Battleship.new
 
   b.start_game
