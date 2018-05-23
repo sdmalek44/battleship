@@ -3,6 +3,7 @@ require './lib/ship'
 class Space
   attr_accessor :ship,
                 :state
+  #see if i can make this attr_reader
 
   def initialize
     @state = "~"

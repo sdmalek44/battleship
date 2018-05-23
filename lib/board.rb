@@ -46,8 +46,7 @@ class Board
     print "D #{@spaces['D'][1].state} #{@spaces['D'][2].state}"
     puts " #{@spaces['D'][3].state} #{@spaces['D'][4].state}\n"
   end
- #assumed to be a valid placement
- #takes in the array of positions from splitting input string
+
   def place_ship(position_array)
       numbers = get_numbers(position_array)
       letters = get_letters(position_array)

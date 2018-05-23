@@ -36,6 +36,7 @@ class Battleship
     if @player.chk.valid(input)
       return set_two_ship(input)
     else
+      puts @text.invalid('A1 A2')
       place_first_ship
     end
   end
@@ -45,6 +46,7 @@ class Battleship
       puts @text.placed
       @player.enter_two_ship(input)
     else
+      puts @text.not_two_ship
       place_first_ship
     end
   end
@@ -55,6 +57,7 @@ class Battleship
     if @player.chk.valid(input)
       return set_three_ship(input)
     else
+      puts @text.invalid('A1 A3')
       place_second_ship
     end
   end
@@ -64,6 +67,7 @@ class Battleship
       puts @text.placed
       @player.enter_three_ship(input)
     else
+      puts @text.not_three_ship
       place_second_ship
     end
   end
@@ -79,7 +83,8 @@ class Battleship
       fire_at_computer(entry)
       return
     else
-      invalid_shot
+      puts @text.cant_fire
+      player_fires
     end
   end
 
@@ -87,11 +92,6 @@ class Battleship
     @computer.board.shoot(entry)
     check_shot_result(entry)
     @player.remove_guess(entry)
-  end
-
-  def invalid_shot
-    puts @text.cant_fire
-    player_fires
   end
 
   def shot_prompt

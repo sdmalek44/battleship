@@ -11,12 +11,18 @@ class Text
     "please enter a valid character\n"
   end
 
-  def wrong_ship
-    "please enter a valid ship placement"
+  def invalid(example)
+    "\nInvalid input! Please enter a ships start and end coordinates.
+For example: '#{example}'\n"
   end
 
-  def wrong_length
-    "please enter a ship of the requested length"
+  def not_three_ship
+    "\nC'mon now! Place a ship that is three spaces long and does not
+land on top of another ship.\n"
+  end
+
+  def not_two_ship
+    "\nI said enter a ship that's two spaces long. Example 'A1 A2'"
   end
 
   def input

@@ -14,7 +14,7 @@ class Player
     @board = Board.new('YOU:')
     @possible = %w[A1 A2 A3 A4 B1 B2 B3 B4 C1 C2 C3 C4 D1 D2 D3 D4]
     @ship_locations = []
-    @filled_spots = [] 
+    @filled_spots = []
     @chk = Check.new
   end
 
@@ -29,8 +29,10 @@ class Player
 
   def enter_three_ship(input)
     if @chk.three_ship(input)
-      @ship_locations << @chk.expand(input)
-      @filled_spots = @ship_locations.flatten
+      if no_overlap(input)
+        @ship_locations << @chk.expand(input)
+        @filled_spots = @ship_locations.flatten
+      end
     else
       false
     end
@@ -43,7 +45,7 @@ class Player
   end
 
   def no_overlap(input)
-    input.split(" ").each do |point|
+    @chk.expand(input).each do |point|
       return false if @filled_spots.include?(point)
     end
     true
