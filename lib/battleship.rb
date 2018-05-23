@@ -8,13 +8,16 @@ class Battleship
   attr_reader :player,
               :computer,
               :text,
-              :end_game
+              :end_game,
+              :turns,
+              :start_time
 
   def initialize
     @end_game = false
     @text = Text.new
     @computer = Computer.new
     @player = Player.new
+    @turns = 0
   end
 
   def start_game
@@ -64,8 +67,9 @@ class Battleship
 
   def set_three_ship(input)
     if @player.chk.three_ship(input) && @player.no_overlap(input)
-      puts @text.placed
+      puts `clear`
       @player.enter_three_ship(input)
+      @start_time = Time.now
     else
       puts @text.not_three_ship
       place_second_ship
@@ -75,6 +79,7 @@ class Battleship
   def player_fires
     shot_prompt
     entry = @text.input
+    puts `clear`
     fire_if_possible(entry)
   end
 
@@ -89,12 +94,14 @@ class Battleship
   end
 
   def fire_at_computer(entry)
+    add_turn
     @computer.board.shoot(entry)
     check_shot_result(entry)
     @player.remove_guess(entry)
   end
 
   def shot_prompt
+    puts @text.ready
     @computer.board.display
     puts @text.enter_position
   end
@@ -110,8 +117,8 @@ class Battleship
 
   def player_hit_sequence(entry, space)
     @computer.board.add_hit
-    puts @text.hit(entry)
     space.show_sunk
+    puts @text.hit(entry)
     if space.state == 'X'
       check_if_won(space)
     end
@@ -120,7 +127,7 @@ class Battleship
   def check_if_won(space)
     puts @text.sunk_ship(space.ship.name)
     if winning_shot
-      puts @text.winner
+      puts @text.winner(finish_time, turns)
       puts @computer.board.display
       restart
     end
@@ -128,6 +135,7 @@ class Battleship
 
   def computer_fires
     entry = @computer.possible.sample
+    puts `clear`
     @player.board.shoot(entry)
     check_comp_shot_result(entry)
     @computer.remove_guess(entry)
@@ -144,8 +152,8 @@ class Battleship
 
   def computer_check_if_sunk(entry, space)
     @player.board.add_hit
-    puts @text.hit_comp(entry)
     space.show_sunk
+    puts @text.hit_comp(entry)
     if space.state == 'X'
       check_if_lost(space)
     end
@@ -155,6 +163,7 @@ class Battleship
     puts @text.comp_sunk(space.ship.name)
     if losing_shot
       puts @text.loser
+      puts @player.board.display
       restart
     end
   end
@@ -181,12 +190,24 @@ class Battleship
   end
 
   def end_turn
-    puts @text.end_turn
-    @text.input
+    print @text.end_turn
+    @text.enter
+    puts `clear`
+  end
+
+  def add_turn
+    @turns += 1
   end
 
   def end_opposing_turn
-    puts @text.end_opposing_turn
-    @text.input
+    print @text.end_opposing_turn
+    @text.enter
+    puts `clear`
+  end
+
+  def finish_time
+    seconds = (Time.now - @start_time).to_i
+    minutes = seconds / 60
+    Array.new.push(minutes, (seconds - minutes * 60))
   end
 end

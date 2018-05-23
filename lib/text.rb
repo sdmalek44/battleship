@@ -22,12 +22,14 @@ land on top of another ship.\n"
   end
 
   def not_two_ship
-    "\nI said enter a ship that's two spaces long. Example 'A1 A2'"
+    "\nI said enter a ship that's two spaces long. Example: 'A1 A2'"
   end
 
   def input
     print "> "
-    gets.chomp.upcase
+    input = gets.chomp.upcase
+    exit if input == 'Q'
+    input
   end
 
   def instructions
@@ -53,11 +55,11 @@ will turn to 'X's. The first player to sink all the opponents ships wins.\n"
 You now need to layout your two ships.
 The first is two units long and the
 second is three units long.
-The grid has A1 at the top left and D4 at the bottom right.\n\n"
+The grid has A1 at the top left and D4 at the bottom right.\n"
   end
 
   def two_ship
-    "Enter the squares for the two-unit ship:\n"
+    "\nEnter the squares for the two-unit ship:\n"
   end
 
   def three_ship
@@ -86,8 +88,7 @@ The grid has A1 at the top left and D4 at the bottom right.\n\n"
   end
 
   def enter_position
-    "Above is the opponents board.
-Enter a position to fire on: "
+    "\nEnter a position to fire on: "
   end
 
   def cant_fire
@@ -96,7 +97,7 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def miss(entry)
-    "\nYour shot at #{entry} was a miss...\n"
+    "\nYour shot at #{entry} was a miss..."
   end
 
   def hit(entry)
@@ -112,11 +113,11 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def end_turn
-    "If you would like to end your turn press ENTER"
+    "\nIf you would like to end your turn press ENTER"
   end
 
   def end_opposing_turn
-    "If you would like to end opponents turn press ENTER"
+    "\nPress ENTER"
   end
 
   def sunk_ship(name)
@@ -127,13 +128,22 @@ Position either doesn't exist or you have already fired on it.\n"
     "\nYour opponent has sunken your #{name}!!\n"
   end
 
-  def winner
+  def winner(time, turns)
     "\nThat was the last of your opponents ships..\n
-Congratulations! YOU WIN!!\n"
+Congratulations! YOU WON!!
+And you did it in #{turns} turns, #{time[0]} minutes, and #{time[1]} seconds."
   end
 
   def loser
     "\nThat was the last of your remaining ships.
 Guess what?...YOU LOSE!\n"
+  end
+
+  def enter
+    gets.chomp
+  end
+
+  def ready
+    "\nPrepare the crew for attack!\n"
   end
 end

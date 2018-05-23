@@ -44,7 +44,9 @@ class Board
     print "C #{@spaces['C'][1].state} #{@spaces['C'][2].state}"
     puts " #{@spaces['C'][3].state} #{@spaces['C'][4].state}"
     print "D #{@spaces['D'][1].state} #{@spaces['D'][2].state}"
-    puts " #{@spaces['D'][3].state} #{@spaces['D'][4].state}\n"
+    puts " #{@spaces['D'][3].state} #{@spaces['D'][4].state}"
+    puts "========="
+
   end
 
   def place_ship(position_array)
