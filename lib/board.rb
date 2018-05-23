@@ -34,19 +34,14 @@ class Board
 
   def display
     update_sunk
-    puts "\n#{@name}"
-    puts "=========="
-    puts ". 1 2 3 4"
-    print "A #{@spaces['A'][1].state} #{@spaces['A'][2].state}"
-    puts " #{@spaces['A'][3].state} #{@spaces['A'][4].state}"
-    print "B #{@spaces['B'][1].state} #{@spaces['B'][2].state}"
-    puts " #{@spaces['B'][3].state} #{@spaces['B'][4].state}"
-    print "C #{@spaces['C'][1].state} #{@spaces['C'][2].state}"
-    puts " #{@spaces['C'][3].state} #{@spaces['C'][4].state}"
-    print "D #{@spaces['D'][1].state} #{@spaces['D'][2].state}"
-    puts " #{@spaces['D'][3].state} #{@spaces['D'][4].state}"
-    puts "========="
-
+"\n#{@name}
+==========
+. 1 2 3 4
+A #{@spaces['A'][1].state} #{@spaces['A'][2].state} #{@spaces['A'][3].state} #{@spaces['A'][4].state}
+B #{@spaces['B'][1].state} #{@spaces['B'][2].state} #{@spaces['B'][3].state} #{@spaces['B'][4].state}
+C #{@spaces['C'][1].state} #{@spaces['C'][2].state} #{@spaces['C'][3].state} #{@spaces['C'][4].state}
+D #{@spaces['D'][1].state} #{@spaces['D'][2].state} #{@spaces['D'][3].state} #{@spaces['D'][4].state}
+========="
   end
 
   def place_ship(position_array)
@@ -54,7 +49,7 @@ class Board
       letters = get_letters(position_array)
       new_ship = Ship.new(position_array.length)
       letters.each_with_index do |letter, index|
-          @spaces[letter][numbers[index]].ship = new_ship
+          @spaces[letter][numbers[index]].fill(new_ship)
       end
   end
 

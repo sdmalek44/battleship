@@ -7,13 +7,13 @@ class Text
     "\nWould you like to (p)lay, (i)nstructions, (q)uit?\n"
   end
 
-  def bad_input
-    "please enter a valid character\n"
-  end
-
   def invalid(example)
     "\nInvalid input! Please enter a ships start and end coordinates.
 For example: '#{example}'\n"
+  end
+
+  def bad_input
+    "please enter a valid character\n"
   end
 
   def not_three_ship
@@ -97,19 +97,19 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def miss(entry)
-    "\nYour shot at #{entry} was a miss..."
+    "Your shot at #{entry} was a miss..."
   end
 
   def hit(entry)
-    "\nYour shot at #{entry} was a hit! Nice work captain!\n"
+    "Your shot at #{entry} was a hit! Nice work captain!\n"
   end
 
   def miss_comp(entry)
-    "\nThe computer fired at #{entry} but missed..\n"
+    "The computer fired at #{entry} but missed..\n"
   end
 
   def hit_comp(entry)
-    "\nThe computer fired and hit your ship at #{entry}!\n"
+    "The computer fired and hit your ship at #{entry}!\n"
   end
 
   def end_turn
@@ -129,13 +129,13 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def winner(time, turns)
-    "\nThat was the last of your opponents ships..\n
+    "That was the last of your opponents ships..\n
 Congratulations! YOU WON!!
 And you did it in #{turns} turns, #{time[0]} minutes, and #{time[1]} seconds."
   end
 
   def loser
-    "\nThat was the last of your remaining ships.
+    "That was the last of your remaining ships.
 Guess what?...YOU LOSE!\n"
   end
 

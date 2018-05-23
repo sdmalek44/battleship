@@ -4,12 +4,12 @@ def play_game(b)
   loop do
     b.player_fires
     break if b.end_game
-    b.computer.board.display
+    puts b.computer.board.display
     b.end_turn
 
     b.computer_fires
     break if b.end_game
-    b.player.board.display
+    puts b.player.board.display
     b.end_opposing_turn
   end
 end

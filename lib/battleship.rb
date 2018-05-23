@@ -77,7 +77,8 @@ class Battleship
   end
 
   def player_fires
-    shot_prompt
+    puts @computer.board.display
+    puts @text.enter_position
     entry = @text.input
     puts `clear`
     fire_if_possible(entry)
@@ -98,12 +99,6 @@ class Battleship
     @computer.board.shoot(entry)
     check_shot_result(entry)
     @player.remove_guess(entry)
-  end
-
-  def shot_prompt
-    puts @text.ready
-    @computer.board.display
-    puts @text.enter_position
   end
 
   def check_shot_result(entry)
