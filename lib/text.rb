@@ -1,41 +1,137 @@
 class Text
+  def welcome
+    "\nWelcome to BATTLESHIP\n"
+  end
+
   def intro
-    "Welcome to BATTLESHIP\n
-Would you like to (p)lay, (i)nstructions, (q)uit?"
+    "\nWould you like to (p)lay, (i)nstructions, (q)uit?\n"
+  end
+
+  def bad_input
+    "please enter a valid character\n"
+  end
+
+  def wrong_ship
+    "please enter a valid ship placement"
+  end
+
+  def wrong_length
+    "please enter a ship of the requested length"
   end
 
   def input
-    print ">"
-    text = gets.chomp
-    text.upcase if !text.nil?
+    print "> "
+    gets.chomp.upcase
   end
 
   def instructions
     "\nINSTRUCTIONS: Each player calls out one shot (or coordinate) each
 turn in attempt to hit one of their opponent’s ships. To hit one of your
 opponent’s ships, you must enter a letter and a number of where you think
-one of their ships is located. The instructions state that once a shot is
-called, the opponent calls out hit or miss. If one of your ships gets hit,
-it will be indicated by the letter 'H' on the board. If calling a shot (or
-trying to hit your opponent’s ships), a mark 'H' for hit and 'M' for miss
-will appear at that spot. This will help you keep track of your hits and
-misses in your hunt to find their ships. Once all spots on a ship have been
-filled with an 'H', your ship has sunk and you will be prompted so.\n"
+one of their ships is located. Once a shot is called, the opponent calls
+out hit or miss. If one of your ships gets hit, it will be indicated by
+the letter 'H' on the board. If calling a shot (or trying to hit your
+opponent’s ships), a mark 'H' for hit and 'M' for miss will appear at
+that spot. This will help you keep track of your hits and misses in your
+hunt to find their ships. Once all spots on a ship have been filled with
+an 'H', a ship has sunk and the 'H' markings on the board for that ship
+will turn to 'X's. The first player to sink all the opponents ships wins.\n"
   end
 
   def quit_game
     "\nQuitting game!!\n"
   end
 
+  def computer_place_ships
+      "\nI have laid out my ships on the grid.
+You now need to layout your two ships.
+The first is two units long and the
+second is three units long.
+The grid has A1 at the top left and D4 at the bottom right.\n\n"
+  end
+
+  def two_ship
+    "Enter the squares for the two-unit ship:\n"
+  end
+
+  def three_ship
+    "\nEnter the squares for the three-unit ship:\n"
+  end
+
+  def placed
+    "\nShip has been placed\n"
+  end
+
   def decision(input)
     if input == "P"
-      puts "start new game"
+      return true
     elsif input == "I"
       puts instructions
-    else input == "Q"
+    elsif input == "Q"
       puts quit_game
       exit
+    else
+      puts bad_input
     end
   end
 
+  def restart_prompt
+    "\nEnter 'r' to restart or 'q' to quit\n"
+  end
+
+  def restart(input)
+
+  end
+
+  def enter_position
+    "Above is the opponents board.
+Enter a position to fire on: "
+  end
+
+  def cant_fire
+    "You cant fire on that position!!!
+Position either doesn't exist or you have already fired on it.\n"
+  end
+
+  def miss(entry)
+    "\nYour shot at #{entry} was a miss...\n"
+  end
+
+  def hit(entry)
+    "\nYour shot at #{entry} was a hit! Nice work captain!\n"
+  end
+
+  def miss_comp(entry)
+    "\nThe computer fired at #{entry} but missed..\n"
+  end
+
+  def hit_comp(entry)
+    "\nThe computer fired and hit your ship at #{entry}!\n"
+  end
+
+  def end_turn
+    "If you would like to end your turn press ENTER\n"
+  end
+
+  def end_opposing_turn
+    "If you would like to end opponents turn press ENTER\n"
+  end
+
+  def sunk_ship(name)
+    "\nYou have sunken the opponents #{name}!\n"
+  end
+
+  def comp_sunk(name)
+    "\nYour opponent has sunken your #{name}!!\n"
+  end
+
+  def winner
+    "\nThat was the last of your opponents ships..\n
+Congratulations! YOU WIN!!\n"
+  end
+
+  def loser
+    "\nThat was the last of your remaining ships.
+Guess what?...YOU LOSE!\n"
+  end
 end
