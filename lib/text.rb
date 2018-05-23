@@ -1,27 +1,35 @@
 class Text
   def welcome
-    "\nWelcome to BATTLESHIP\n"
+    "\n\n\nWelcome to BATTLESHIP\n"
   end
 
   def intro
     "\nWould you like to (p)lay, (i)nstructions, (q)uit?\n"
   end
 
+  def invalid(example)
+    "\nInvalid input! Please enter a ships start and end coordinates.
+For example: '#{example}'\n"
+  end
+
   def bad_input
     "please enter a valid character\n"
   end
 
-  def wrong_ship
-    "please enter a valid ship placement"
+  def not_three_ship
+    "\nC'mon now! Place a ship that is three spaces long and does not
+land on top of another ship.\n"
   end
 
-  def wrong_length
-    "please enter a ship of the requested length"
+  def not_two_ship
+    "\nI said enter a ship that's two spaces long. Example: 'A1 A2'"
   end
 
   def input
     print "> "
-    gets.chomp.upcase
+    input = gets.chomp.upcase
+    exit if input == 'Q'
+    input
   end
 
   def instructions
@@ -47,11 +55,11 @@ will turn to 'X's. The first player to sink all the opponents ships wins.\n"
 You now need to layout your two ships.
 The first is two units long and the
 second is three units long.
-The grid has A1 at the top left and D4 at the bottom right.\n\n"
+The grid has A1 at the top left and D4 at the bottom right.\n"
   end
 
   def two_ship
-    "Enter the squares for the two-unit ship:\n"
+    "\nEnter the squares for the two-unit ship:\n"
   end
 
   def three_ship
@@ -76,16 +84,11 @@ The grid has A1 at the top left and D4 at the bottom right.\n\n"
   end
 
   def restart_prompt
-    "\nEnter 'r' to restart or 'q' to quit\n"
-  end
-
-  def restart(input)
-
+    "Enter 'r' to restart or 'q' to quit\n"
   end
 
   def enter_position
-    "Above is the opponents board.
-Enter a position to fire on: "
+    "\nEnter a position to fire on: "
   end
 
   def cant_fire
@@ -94,27 +97,27 @@ Position either doesn't exist or you have already fired on it.\n"
   end
 
   def miss(entry)
-    "\nYour shot at #{entry} was a miss...\n"
+    "Your shot at #{entry} was a miss..."
   end
 
   def hit(entry)
-    "\nYour shot at #{entry} was a hit! Nice work captain!\n"
+    "Your shot at #{entry} was a hit! Nice work captain!\n"
   end
 
   def miss_comp(entry)
-    "\nThe computer fired at #{entry} but missed..\n"
+    "The computer fired at #{entry} but missed..\n"
   end
 
   def hit_comp(entry)
-    "\nThe computer fired and hit your ship at #{entry}!\n"
+    "The computer fired and hit your ship at #{entry}!\n"
   end
 
   def end_turn
-    "If you would like to end your turn press ENTER\n"
+    "\nIf you would like to end your turn press ENTER"
   end
 
   def end_opposing_turn
-    "If you would like to end opponents turn press ENTER\n"
+    "\nPress ENTER"
   end
 
   def sunk_ship(name)
@@ -125,13 +128,18 @@ Position either doesn't exist or you have already fired on it.\n"
     "\nYour opponent has sunken your #{name}!!\n"
   end
 
-  def winner
-    "\nThat was the last of your opponents ships..\n
-Congratulations! YOU WIN!!\n"
+  def winner(time, turns)
+    "That was the last of your opponents ships..\n
+Congratulations! YOU WON!!
+And you did it in #{turns} turns, #{time[0]} minutes, and #{time[1]} seconds."
   end
 
   def loser
-    "\nThat was the last of your remaining ships.
+    "That was the last of your remaining ships.
 Guess what?...YOU LOSE!\n"
+  end
+
+  def enter
+    gets.chomp
   end
 end

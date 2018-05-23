@@ -67,20 +67,23 @@ class Check
     end
   end
 
-  def two_or_three(input)
-    return 3 if three_ship(input)
-    return 2 if two_ship(input)
+  def same_row_expand(input)
+    nums = ((get_nums(input)[0].to_s)..(get_nums(input)[1].to_s)).to_a
+    letters = get_letts(input).push(get_letts(input)[0])
+    letters.map.with_index {|let, idx| let + nums[idx] }
+  end
+
+  def same_col_expand(input)
+    letters = (get_letts(input)[0]..get_letts(input)[1]).to_a
+    nums = [get_nums(input)[0].to_s, get_nums(input)[0].to_s, get_nums(input)[0].to_s]
+    letters.map.with_index {|let, idx| let + nums[idx]}
   end
 
   def expand(input)
     if same_row(input)
-      nums = ((get_nums(input)[0].to_s)..(get_nums(input)[1].to_s)).to_a
-      let = get_letts(input).push(get_letts(input)[0])
-      let.map.with_index {|let, idx| let + nums[idx] }
+      same_row_expand(input)
     elsif same_col(input)
-      let = (get_letts(input)[0]..get_letts(input)[1]).to_a
-      nums = [get_nums(input)[0].to_s, get_nums(input)[0].to_s, get_nums(input)[0].to_s]
-      let.map.with_index {|let, idx| let + nums[idx]}
+      same_col_expand(input)
     else
       false
     end

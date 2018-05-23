@@ -1,28 +1,24 @@
 require './lib/ship'
 
 class Space
-  attr_accessor :ship,
-                :state
+  attr_reader :ship,
+              :state
 
   def initialize
-    @state = "~"
     @ship = nil
+    @state = "~"
   end
 
   def fill(ship)
     @ship = ship
   end
 
-  def empty?
-    @ship == nil
-  end
-
   def shot
-    if @ship != nil
+    if @ship == nil
+      @state = 'M'
+    else
       @ship.hit
       @state = 'H'
-    else
-      @state = 'M'
     end
   end
 

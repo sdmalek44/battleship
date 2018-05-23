@@ -8,6 +8,15 @@ class BoardTest < Minitest::Test
     assert_instance_of Board, b
   end
 
+  def test_spaces_initializes_a_hash_of_hashes_containing_space_objects
+    b = Board.new('comp')
+
+    assert_instance_of Space,b.spaces['A'][1]
+    assert_instance_of Space,b.spaces['B'][2]
+    assert_instance_of Space,b.spaces['C'][3]
+    assert_instance_of Space,b.spaces['D'][4]
+  end
+
   def test_get_numbers
     b = Board.new('comp')
 
@@ -17,11 +26,24 @@ class BoardTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_it_shoots_at_correct_position
+    b = Board.new('comp')
+    assert_nil b.spaces['A'][1].ship
+    assert_nil b.spaces['A'][2].ship
+
+    b.place_ship(['A1', 'A2'])
+
+    assert_instance_of Ship, b.spaces['A'][1].ship
+    assert_instance_of Ship, b.spaces['A'][2].ship
+  end
+
   def test_get_letters
     b = Board.new('comp')
 
-    expected = ['A', 'B', 'C']
+    expected = ['A', 'A', 'A']
     actual = b.get_letters(['A1', 'A2', 'A3'])
+
+    assert_equal expected, actual
   end
 
   def test_it_places_ship_object
@@ -46,21 +68,25 @@ class BoardTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  # def test_it_fits_horizontally
-  #   b = Board.new
-  #
-  #   assert b.fit_horz?(['A2', 'A3', 'A4'])
-  #   refute b.fit_horz?(['A3', 'A4', 'A5'])
-  #   assert b.fit_horz?(['A3', 'A4'])
-  #   refute b.fit_horz?(['B4', 'B5'])
-  # end
-  #
-  # def test_it_fits_vertically
-  #   b = Board.new
-  #
-  #   assert b.fit_vert?(['A1', 'B1', 'C1'])
-  #   refute b.fit_vert?(['C2', 'D2', 'E2'])
-  #   assert b.fit_vert?(['C3', 'D3'])
-  #   refute b.fit_vert?(['D4', 'E4'])
-  # end
+  def test_add_hit_adds_one_to_hits
+    b = Board.new('NAME')
+
+    assert_equal 0, b.hits
+    assert_equal 1, b.add_hit
+    assert_equal 1, b.hits
+  end
+
+  def test_displays_board
+    b = Board.new('NAME')
+    actual = b.display
+    expected = "\nNAME
+==========
+. 1 2 3 4
+A ~ ~ ~ ~
+B ~ ~ ~ ~
+C ~ ~ ~ ~
+D ~ ~ ~ ~
+========="
+    assert_equal expected, actual
+  end
 end

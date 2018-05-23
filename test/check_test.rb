@@ -75,37 +75,48 @@ class CheckTest < Minitest::Test
     refute c.same_row("A1 B1")
   end
 
-  def test_if_it_is_three_long
+  def test_it_expands_if_same_row
+    c = Check.new
+
+    expected = ['A1','A2','A3']
+    actual = c.same_row_expand('A1 A3')
+    assert_equal expected, actual
+  end
+
+  def test_it_expands_if_same_column
+    c = Check.new
+
+    expected = ['A1','B1','C1']
+    actual = c.same_col_expand('A1 C1')
+    assert_equal expected, actual
+  end
+
+  def test_it_is_three_ship
     c = Check.new
 
     assert c.three_ship('A1 A3')
-    refute c.three_ship('A2 A3')
-    assert c.three_ship('B2 D2')
-    refute c.three_ship('B2 C2')
-
+    refute c.three_ship('A1 A2')
   end
 
-  def test_if_it_is_three_long
+  def test_it_is_two_ship
     c = Check.new
 
     refute c.two_ship('A1 A3')
-    assert c.two_ship('A2 A3')
-    refute c.two_ship('B2 D2')
-    assert c.two_ship('B2 C2')
-  end
-
-  def test_two_or_three
-    c = Check.new
-
-    assert_equal 2, c.two_or_three('A1 A2')
-    assert_equal 3, c.two_or_three('A1 A3')
+    assert c.two_ship('A1 A2')
   end
 
   def test_if_it_expands_a_three_ship
-    valid1 = Check.new
-    valid2 = Check.new
+    valid = Check.new
 
-    assert_equal ["A1", "B1", "C1"], valid1.expand("A1 C1")
-    assert_equal ["B1", "B2", "B3"], valid2.expand("B1 B3")
+    assert_equal ["A1", "B1", "C1"], valid.expand("A1 C1")
+    assert_equal ["B1", "B2", "B3"], valid.expand("B1 B3")
+    refute valid.expand('A1 B2')
+  end
+
+  def test_it_is_not_diagonal
+    c = Check.new
+
+    assert c.not_diagonal('A1 A2')
+    refute c.not_diagonal('B1 C2')
   end
 end
